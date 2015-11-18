@@ -1,0 +1,21 @@
+
+<project name="TeleDeploy" default="deploy" basedir=".">
+
+
+	<!-- Define the properties used by the build -->
+	<property file="deploy.properties" />
+	<import file="build.xml"/>
+	<target name="deploy" >
+		<exec executable="${tomcat.dir}/bin/shutdown.bat" />
+		<copy file="war/mobiletopup.war" todir="${tomcat.dir}/webapps"/>		
+		<exec executable="${tomcat.dir}/bin/startup.bat" />
+		
+	</target>
+	
+	<target name="deploy-jboss" >
+		<delete file="${jboss.dir}/standalone/deployments/mobiletopup.war" />
+		<copy file="war/mobiletopup.war" todir="${jboss.dir}/standalone/deployments"/>		
+		<exec executable="${jboss.dir}/bin/standalone.bat" />
+	</target>
+
+</project>
